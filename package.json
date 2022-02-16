@@ -1,0 +1,22 @@
+{
+  "name": "@ubie-inc/design-tokens",
+  "version": "0.0.1",
+  "description": "Ubie Design Tokens",
+  "style": "dist/css/ubie-design-tokens.css",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ubie-inc/design-tokens.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ubie-inc/design-tokens/issues"
+  },
+  "homepage": "https://github.com/ubie-inc/design-tokens#readme"
+}
