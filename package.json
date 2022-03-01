@@ -7,7 +7,11 @@
     "dist/**"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "run-p build:*",
+    "build:tokens": "npx style-dictionary build",
+    "build:figma": "node ./scripts/figma.js",
+    "prepublishOnly": "yarn build"
   },
   "repository": {
     "type": "git",
@@ -18,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/ubie-inc/design-tokens/issues"
   },
-  "homepage": "https://github.com/ubie-inc/design-tokens#readme"
+  "homepage": "https://github.com/ubie-inc/design-tokens#readme",
+  "devDependencies": {
+    "node-fetch": "^3.2.0",
+    "npm-run-all": "^4.1.5"
+  }
 }
