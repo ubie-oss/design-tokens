@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:tokens": "npx style-dictionary build",
+    "build:tokens": "style-dictionary build",
     "build:figma": "node ./scripts/figma.js",
     "prepublishOnly": "yarn build"
   },
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/ubie-inc/design-tokens#readme",
   "devDependencies": {
-    "node-fetch": "^3.2.0"
+    "node-fetch": "^3.2.0",
+    "style-dictionary": "^3.7.0"
   }
 }

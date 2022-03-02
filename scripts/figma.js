@@ -6,7 +6,7 @@ const fetch = (...args) =>
 const writeFile = promisify(fs.writeFile);
 
 const TOKEN = process.env.FIGMA_TOKEN;
-const FIGMA_FILE_KEY = process.env.FIGMA_FILE_KEY;
+const FIGMA_FILE_KEY = process.env.FIGMA_DESIGN_TOKEN_FILE_KEY;
 const PREFIX = "Ubie";
 
 const fetchFigma = (path) =>

@@ -3,20 +3,29 @@
   "platforms": {
     "css": {
       "transformGroup": "css",
-      "buildPath": "dist/css/",
-      "files": [{
-        "destination": "ubie-design-tokens.css",
-        "format": "css/variables",
-        "options": {
-          "outputReferences": true
+      "buildPath": "dist/",
+      "files": [
+        {
+          "destination": "tokens.css",
+          "format": "css/variables",
+          "options": {
+            "outputReferences": true
+          }
+        },
+        {
+          "destination": "tokens.scss",
+          "format": "css/variables",
+          "options": {
+            "outputReferences": true
+          }
         }
-      }]
+      ]
     },
     "js": {
       "transformGroup": "js",
-      "buildPath": "dist/js/",
+      "buildPath": "dist/",
       "files": [{
-        "destination": "ubie-design-tokens.js",
+        "destination": "tokens.js",
         "format": "javascript/module"
       }]
     }
