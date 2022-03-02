@@ -76,13 +76,13 @@ const main = async () => {
       };
     });
 
-  const primitiveContent = JSON.stringify({
+  const primitiveColorContent = JSON.stringify({
     [PREFIX]: {
       ...primitiveColors,
     },
   });
 
-  const semanticsContent = JSON.stringify({
+  const semanticsColorContent = JSON.stringify({
     Color: {
       ...semanticColors,
     },
@@ -90,11 +90,11 @@ const main = async () => {
 
   await writeFile(
     path.resolve(__dirname, "../tokens/color/primitive.json"),
-    primitiveContent
+    primitiveColorContent
   );
   await writeFile(
     path.resolve(__dirname, "../tokens/color/semantics.json"),
-    semanticsContent
+    semanticsColorContent
   );
   console.log("DONE");
 };
