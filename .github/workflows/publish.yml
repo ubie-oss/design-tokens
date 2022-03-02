@@ -24,7 +24,7 @@ jobs:
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
 
       - name: build tokens
-          run: npm run build:tokens
+        run: npm run build:tokens
 
       - run: npm publish
         env:
