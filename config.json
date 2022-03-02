@@ -13,11 +13,11 @@
       }]
     },
     "js": {
-      "transformGroup": "css",
+      "transformGroup": "js",
       "buildPath": "dist/js/",
       "files": [{
         "destination": "ubie-design-tokens.js",
-        "format": "css/variables"
+        "format": "javascript/module"
       }]
     }
   }
