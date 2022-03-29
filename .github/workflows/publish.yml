@@ -20,7 +20,7 @@ jobs:
       - name: build figma
         run: npm run build:figma
         env:
-          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+          FIGMA_TOKEN: ${{ secrets.UBIE_FIGMA_TOKEN }}
           FIGMA_DESIGN_TOKEN_FILE_KEY: ${{ secrets.FIGMA_DESIGN_TOKEN_FILE_KEY }}
 
       - name: build tokens
