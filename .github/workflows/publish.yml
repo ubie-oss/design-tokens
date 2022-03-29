@@ -18,14 +18,14 @@ jobs:
       - run: npm ci
 
       - name: build figma
-        run: yarn run build:figma
+        run: npm run build:figma
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
-          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+          FIGMA_DESIGN_TOKEN_FILE_KEY: ${{ secrets.FIGMA_DESIGN_TOKEN_FILE_KEY }}
 
       - name: build tokens
         run: npm run build:tokens
 
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.UBIE_NPM_TOKEN }}

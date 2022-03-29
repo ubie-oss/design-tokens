@@ -2,6 +2,9 @@
 
 This is a package for using the design tokens defined in Ubie's products in development. Design tokens are managed in JSON format and are converted to the format for each platform using [Style Dictionary](https://amzn.github.io/style-dictionary/).
 
+Figma file is here.
+https://www.figma.com/file/9LjkKt27YY9LfTK8Cwx08m/Ubie-Design-Tokens-(Public)?node-id=0%3A1
+
 ## Usage
 
 ```bash
@@ -12,18 +15,18 @@ This package contains files with three extensions: CSS, SCSS, and JS.
 
 ### CSS
 ```CSS
-@import url('node_modules/@ubie/design-tokens/tokens.css');
+@import url('node_modules/@ubie/design-tokens/dist/tokens.css');
 ```
 
 ### SCSS
 ```SCSS
-@import 'node_modules/@ubie/design-tokens/tokens.scss';
+@import 'node_modules/@ubie/design-tokens/dist/tokens.scss';
 ```
 
 ### JS
 
 ```js
-import Tokens from '@ubie/design-tokens'
+import DesignTokens from '@ubie/design-tokens'
 ```
 
 ## Development
