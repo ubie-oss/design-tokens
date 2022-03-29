@@ -2,6 +2,9 @@
 
 This is a package for using the design tokens defined in Ubie's products in development. Design tokens are managed in JSON format and are converted to the format for each platform using [Style Dictionary](https://amzn.github.io/style-dictionary/).
 
+Figma file is here.
+https://www.figma.com/file/9LjkKt27YY9LfTK8Cwx08m/Ubie-Design-Tokens-(Public)?node-id=0%3A1
+
 ## Usage
 
 ```bash
