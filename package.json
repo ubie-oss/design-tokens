@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "description": "Ubie Design Tokens",
   "style": "dist/tokens.css",
+  "main": "dist/tokens.js",
+  "typings": "design-tokens.d.ts",
   "files": [
-    "dist/**"
+    "dist/**",
+    "design-tokens.d.ts"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

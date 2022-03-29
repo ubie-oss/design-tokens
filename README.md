@@ -12,18 +12,18 @@ This package contains files with three extensions: CSS, SCSS, and JS.
 
 ### CSS
 ```CSS
-@import url('node_modules/@ubie/design-tokens/tokens.css');
+@import url('node_modules/@ubie/design-tokens/dist/tokens.css');
 ```
 
 ### SCSS
 ```SCSS
-@import 'node_modules/@ubie/design-tokens/tokens.scss';
+@import 'node_modules/@ubie/design-tokens/dist/tokens.scss';
 ```
 
 ### JS
 
 ```js
-import Tokens from '@ubie/design-tokens'
+import DesignTokens from '@ubie/design-tokens'
 ```
 
 ## Development
