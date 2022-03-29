@@ -18,7 +18,7 @@ jobs:
       - run: npm ci
 
       - name: build figma
-        run: yarn run build:figma
+        run: npm run build:figma
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
           FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
