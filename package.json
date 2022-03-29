@@ -1,29 +1,31 @@
 {
-  "name": "@ubie-inc/design-tokens",
+  "name": "@ubie/design-tokens",
   "version": "0.0.1",
   "description": "Ubie Design Tokens",
-  "main": "build/index.js",
+  "style": "dist/tokens.css",
   "files": [
-    "dist"
+    "dist/**"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:tokens": "style-dictionary build",
-    "build:figma": "node ./scripts/figma.js",
-    "prepublishOnly": "yarn build"
+    "build:figma": "node ./scripts/figma.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ubie-inc/design-tokens.git"
+    "url": "git+https://github.com/ubie-oss/design-tokens.git"
   },
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ubie-inc/design-tokens/issues"
+    "url": "https://github.com/ubie-oss/design-tokens/issues"
   },
-  "homepage": "https://github.com/ubie-inc/design-tokens#readme",
+  "homepage": "https://github.com/ubie-oss/design-tokens#readme",
   "devDependencies": {
     "node-fetch": "^3.2.0",
     "style-dictionary": "^3.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
