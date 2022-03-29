@@ -62,12 +62,12 @@ const main = async () => {
   const semanticColors = {};
 
   Object.values(nodes)
-    .filter(({ document }) => document.name.includes("Semantics"))
+    .filter(({ document }) => document.name.includes("Semantic"))
     .forEach(({ document }) => {
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
       const colorName = document.name.split("/")[1];
-      const style = styles.find((s) => s.name.includes(colorName));
+      const style = styles.find((s) => s.name.split("/")[1] === colorName);
       const reference = style.description;
       semanticColors[colorName.replaceAll(" ", "")] = {
         value: !reference
