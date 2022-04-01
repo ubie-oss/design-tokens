@@ -4,7 +4,7 @@
   "description": "Ubie Design Tokens",
   "style": "dist/tokens.css",
   "main": "dist/tokens.js",
-  "typings": "design-tokens.d.ts",
+  "typings": "dist/tokens.d.ts",
   "files": [
     "dist/**",
     "design-tokens.d.ts"
@@ -31,5 +31,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "volta": {
+    "node": "16.14.2"
   }
 }

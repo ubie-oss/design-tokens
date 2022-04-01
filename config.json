@@ -24,10 +24,22 @@
     "js": {
       "transformGroup": "js",
       "buildPath": "dist/",
-      "files": [{
-        "destination": "tokens.js",
-        "format": "javascript/module"
-      }]
+      "files": [
+        {
+          "destination": "tokens.js",
+          "format": "javascript/module"
+        }
+      ]
+    },
+    "ts": {
+      "transformGroup": "js",
+      "buildPath": "dist/",
+      "files": [
+        {
+          "destination": "tokens.d.ts",
+          "format": "typescript/module-declarations"
+        }
+      ]
     }
   }
 }
