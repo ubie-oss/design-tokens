@@ -1,13 +1,12 @@
 {
   "name": "@ubie/design-tokens",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Ubie Design Tokens",
   "style": "dist/tokens.css",
   "main": "dist/tokens.js",
-  "typings": "design-tokens.d.ts",
+  "typings": "dist/tokens.d.ts",
   "files": [
-    "dist/**",
-    "design-tokens.d.ts"
+    "dist/**"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,5 +30,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "volta": {
+    "node": "16.14.2"
   }
 }
