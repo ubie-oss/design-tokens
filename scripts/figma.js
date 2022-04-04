@@ -26,18 +26,29 @@ const rgbaToHex = (r, g, b, a) => {
     hg.length === 1 ? `0${hg}` : hg
   }${hb.length === 1 ? `0${hb}` : hb}${ha.length === 1 ? `0${ha}` : ha}`;
 };
+
 const main = async () => {
+
+  // Get styles value
   const responseStyles = await fetchFigma("/styles");
   const styles = responseStyles.meta.styles;
 
-  const nodeIds = styles.map((style) => style.node_id);
-  const nodeIdsQuery = nodeIds.join(",");
+  const styleNodeIds = styles.map((style) => style.node_id);
+  const styleNodeIdsQuery = styleNodeIds.join(",");
+  const { nodes: styleNodes } = await fetchFigma(`/nodes?ids=${styleNodeIdsQuery}`);
 
-  const { nodes } = await fetchFigma(`/nodes?ids=${nodeIdsQuery}`);
+  // Get components value
+  const responseComponents = await fetchFigma("/components");
+  const components = responseComponents.meta.components;
 
+  const componentNodeIds = components.map((component) => component.node_id);
+  const componentNodeIdsQuery = componentNodeIds.join(",");
+  const { nodes: componentNodes } = await fetchFigma(`/nodes?ids=${componentNodeIdsQuery}`);
+
+  // Generate color tokens
   const primitiveColors = {};
 
-  Object.values(nodes)
+  Object.values(styleNodes)
     .filter(({ document }) => document.name.includes("Primitive"))
     .forEach(({ document }) => {
       const { opacity, color } = document.fills[0];
@@ -61,7 +72,7 @@ const main = async () => {
 
   const semanticColors = {};
 
-  Object.values(nodes)
+  Object.values(styleNodes)
     .filter(({ document }) => document.name.includes("Semantic"))
     .forEach(({ document }) => {
       const { opacity, color } = document.fills[0];
@@ -72,19 +83,40 @@ const main = async () => {
       semanticColors[colorName.replaceAll(" ", "")] = {
         value: !reference
           ? rgbaToHex(r * 255, g * 255, b * 255, opacity)
-          : `{${reference.replaceAll(" ", ".")}.value}`,
+          : `{color.${reference.replaceAll(" ", ".")}.value}`,
       };
     });
 
   const primitiveColorContent = JSON.stringify({
-    [PREFIX]: {
-      ...primitiveColors,
-    },
+    color: {
+      [PREFIX]: {
+        ...primitiveColors,
+      },
+    }
   });
 
   const semanticsColorContent = JSON.stringify({
-    Color: {
+    color: {
       ...semanticColors,
+    },
+  });
+
+  // Generate Spacing tokens
+  const spacings = {};
+  Object.values(componentNodes)
+    .forEach(({ document }) => {
+      const name = document.name.split(" ")[1].toLowerCase();
+      const value = Number(document.absoluteBoundingBox.width) / 16;
+      spacings[name] = {
+        value: value
+      }
+    })
+  
+  const spacingContent = JSON.stringify({
+    size: {
+      Spacing: {
+        ...spacings,
+      }
     },
   });
 
@@ -95,6 +127,10 @@ const main = async () => {
   await writeFile(
     path.resolve(__dirname, "../tokens/color/semantics.json"),
     semanticsColorContent
+  );
+  await writeFile(
+    path.resolve(__dirname, "../tokens/size/spacing.json"),
+    spacingContent
   );
   console.log("DONE");
 };
