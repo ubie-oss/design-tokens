@@ -54,9 +54,9 @@ const main = async () => {
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
       const hex = rgbaToHex(r * 255, g * 255, b * 255, opacity);
-      const colorName = document.name.split("/")[1];
-      const colorNameArr = colorName.split(" ");
-      if (colorName.split(" ").length === 2) {
+      const colorNameArr = document.name.split("/").slice(1);
+      if (colorNameArr.length === 2) {
+        // ex: "Ubie/White"
         primitiveColors[colorNameArr[1]] = {
           value: hex,
         };
@@ -77,10 +77,10 @@ const main = async () => {
     .forEach(({ document }) => {
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
-      const colorName = document.name.split("/")[1];
-      const style = styles.find((s) => s.name.split("/")[1] === colorName);
+      const colorName = document.name.split("/").slice(1).join(' ');
+      const style = styles.find((s) => s.name === document.name);
       const reference = style.description;
-      semanticColors[colorName.replaceAll(" ", "")] = {
+      semanticColors[colorName] = {
         value: !reference
           ? rgbaToHex(r * 255, g * 255, b * 255, opacity)
           : `{color.${reference.replaceAll(" ", ".")}.value}`,
@@ -104,6 +104,7 @@ const main = async () => {
   // Generate Spacing tokens
   const spacings = {};
   Object.values(componentNodes)
+    .filter(({ document }) => document.name.includes("Spacing"))
     .forEach(({ document }) => {
       const name = document.name.split(" ")[1].toLowerCase();
       const value = Number(document.absoluteBoundingBox.width) / 16;
