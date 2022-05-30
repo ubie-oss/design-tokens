@@ -17,14 +17,16 @@ const fetchFigma = (path) =>
   }).then((response) => response.json());
 
 const rgbaToHex = (r, g, b, a) => {
-  const hr = Math.round(r).toString(16);
-  const hg = Math.round(g).toString(16);
-  const hb = Math.round(b).toString(16);
-  const ha = !a ? "" : Math.round(a * 255).toString(16);
+  const hr = Math.round(r).toString(16).padStart(2, "0");
+  const hg = Math.round(g).toString(16).padStart(2, "0");
+  const hb = Math.round(b).toString(16).padStart(2, "0");
+  const ha = !a
+    ? ""
+    : Math.round(a * 255)
+        .toString(16)
+        .padStart(2, "0");
 
-  return `#${hr.length === 1 ? `0${hr}` : hr}${
-    hg.length === 1 ? `0${hg}` : hg
-  }${hb.length === 1 ? `0${hb}` : hb}${ha.length === 1 ? `0${ha}` : ha}`;
+  return "#" + hr + hg + hb + ha;
 };
 
 const main = async () => {
@@ -112,7 +114,7 @@ const main = async () => {
         value: value
       }
     })
-  
+
   const spacingContent = JSON.stringify({
     size: {
       Spacing: {
