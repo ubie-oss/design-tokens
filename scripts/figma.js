@@ -106,7 +106,7 @@ const main = async () => {
   Object.values(componentNodes)
     .filter(({ document }) => document.name.includes('Spacing'))
     .forEach(({ document }) => {
-      const name = document.name.split(' ')[1].toLowerCase();
+      const name = document.name.split('/')[1].toLowerCase();
       const value = Number(document.absoluteBoundingBox.width) / 16;
       spacings[name] = {
         value: value,
