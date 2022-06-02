@@ -7,6 +7,7 @@ const writeFile = promisify(fs.writeFile);
 const TOKEN = process.env.FIGMA_TOKEN;
 const FIGMA_FILE_KEY = process.env.FIGMA_DESIGN_TOKEN_FILE_KEY;
 const PREFIX = 'Ubie';
+const ROOT_FONT_SIZE = 16;
 
 const fetchFigma = (path) =>
   fetch(`https://api.figma.com/v1/files/${FIGMA_FILE_KEY}${path}`, {
@@ -107,7 +108,7 @@ const main = async () => {
     .filter(({ document }) => document.name.includes('Spacing'))
     .forEach(({ document }) => {
       const name = document.name.split('/')[1].toLowerCase();
-      const value = Number(document.absoluteBoundingBox.width) / 16;
+      const value = Number(document.absoluteBoundingBox.width) / ROOT_FONT_SIZE;
       spacings[name] = {
         value: value,
       };
@@ -121,9 +122,56 @@ const main = async () => {
     },
   });
 
+  // Generate Typography tokens
+  const typography = {};
+  Object.values(styleNodes)
+    .filter(({ document }) => document.type === 'TEXT')
+    .sort((a, b) => a.document.name.localeCompare(b.document.name))
+    .forEach(({ document }) => {
+      const name = document.name.split('/');
+      const category = name[0].toLowerCase();
+      const scale = name[1].toLowerCase();
+      const lineHeight = document.style.lineHeightPercentFontSize / 100;
+      const fontSize = document.style.fontSize / ROOT_FONT_SIZE + 'rem';
+
+      if (category in typography) {
+        typography[category][scale] = {
+          line: {
+            value: lineHeight,
+          },
+          size: {
+            value: fontSize,
+          },
+        };
+      } else {
+        typography[category] = {
+          [scale]: {
+            line: {
+              value: lineHeight,
+            },
+            size: {
+              value: fontSize,
+            },
+          },
+        };
+      }
+    });
+
+  const typographyContent = JSON.stringify({
+    text: {
+      ...typography,
+      base: {
+        family: {
+          value: 'UDShinGoPr6N, sans-serif',
+        },
+      },
+    },
+  });
+
   await writeFile(path.resolve(__dirname, '../tokens/color/primitive.json'), primitiveColorContent);
   await writeFile(path.resolve(__dirname, '../tokens/color/semantics.json'), semanticsColorContent);
   await writeFile(path.resolve(__dirname, '../tokens/size/spacing.json'), spacingContent);
+  await writeFile(path.resolve(__dirname, '../tokens/text/typography.json'), typographyContent);
   console.log('DONE');
 };
 
