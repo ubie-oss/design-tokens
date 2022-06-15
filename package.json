@@ -1,6 +1,6 @@
 {
   "name": "@ubie/design-tokens",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Ubie Design Tokens",
   "style": "dist/tokens.css",
   "main": "dist/tokens.js",
