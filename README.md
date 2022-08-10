@@ -2,8 +2,8 @@
 
 This is a package for using the design tokens defined in Ubie's products in development. Design tokens are managed in JSON format and are converted to the format for each platform using [Style Dictionary](https://amzn.github.io/style-dictionary/).
 
-Figma file is here.  
-https://www.figma.com/file/9LjkKt27YY9LfTK8Cwx08m/Ubie-Design-Tokens-(Public)?node-id=0%3A1
+Figma file is published in Figma Community.
+https://www.figma.com/community/file/1139108856002045571
 
 ## Usage
 
@@ -36,6 +36,8 @@ import DesignTokens from '@ubie/design-tokens'
 ```bash
 FIGMA_TOKEN=*** FIGMA_DESIGN_TOKEN_FILE_KEY=*** yarn build:figma
 ```
+
+*If you’re Ubie member and want to know FIGMA_DESIGN_TOKEN_FILE_KEY,  please ask to `@designer` on Ubie Slack. 
 
 2. Converts JSON files to the format used by each platform
 
