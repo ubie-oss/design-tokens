@@ -51,30 +51,22 @@ const main = async () => {
 
   Object.values(styleNodes)
     .filter(({ document }) => document.name.includes('Primitive'))
+    .sort((a, b) => a.document.name.localeCompare(b.document.name))
     .forEach(({ document }) => {
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
       const hex = rgbaToHex(r * 255, g * 255, b * 255, opacity);
       const colorNameArr = document.name.toLowerCase().split('/').slice(1);
-      if (colorNameArr.length === 2) {
-        // ex: "Ubie/White"
-        primitiveColors[colorNameArr[1]] = {
-          value: hex,
-        };
-      } else {
-        primitiveColors[colorNameArr[1]] = {
-          ...primitiveColors[colorNameArr[1]],
-          [colorNameArr[2]]: {
-            value: hex,
-          },
-        };
-      }
+      primitiveColors[colorNameArr.join('-')] = {
+        value: hex,
+      };
     });
 
   const semanticColors = {};
 
   Object.values(styleNodes)
     .filter(({ document }) => document.name.includes('Semantic'))
+    .sort((a, b) => a.document.name.localeCompare(b.document.name))
     .forEach(({ document }) => {
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
@@ -84,15 +76,13 @@ const main = async () => {
       semanticColors[colorName] = {
         value: !reference
           ? rgbaToHex(r * 255, g * 255, b * 255, opacity)
-          : `{color.${reference.toLowerCase().replaceAll(' ', '.')}.value}`,
+          : `{color.${reference.toLowerCase().replaceAll(' ', '-')}.value}`,
       };
     });
 
   const primitiveColorContent = JSON.stringify({
     color: {
-      [PREFIX]: {
-        ...primitiveColors,
-      },
+      ...primitiveColors,
     },
   });
 
@@ -107,7 +97,7 @@ const main = async () => {
   Object.values(componentNodes)
     .filter(({ document }) => document.name.includes('Spacing'))
     .forEach(({ document }) => {
-      const name = document.name.split('/')[1].toLowerCase();
+      const name = 'spacing' + '-' + document.name.split('/')[1].toLowerCase();
       const value = Number(document.absoluteBoundingBox.width) / ROOT_FONT_SIZE;
       spacings[name] = {
         value: value,
@@ -116,9 +106,7 @@ const main = async () => {
 
   const spacingContent = JSON.stringify({
     size: {
-      spacing: {
-        ...spacings,
-      },
+      ...spacings,
     },
   });
 
@@ -133,37 +121,19 @@ const main = async () => {
       const scale = name[1].toLowerCase();
       const lineHeight = document.style.lineHeightPercentFontSize / 100;
       const fontSize = document.style.fontSize / ROOT_FONT_SIZE + 'rem';
-
-      if (category in typography) {
-        typography[category][scale] = {
-          line: {
-            value: lineHeight,
-          },
-          size: {
-            value: fontSize,
-          },
-        };
-      } else {
-        typography[category] = {
-          [scale]: {
-            line: {
-              value: lineHeight,
-            },
-            size: {
-              value: fontSize,
-            },
-          },
-        };
-      }
+      typography[[category, scale, 'size'].join('-')] = {
+        value: fontSize,
+      };
+      typography[[category, scale, 'line'].join('-')] = {
+        value: lineHeight,
+      };
     });
 
   const typographyContent = JSON.stringify({
     text: {
       ...typography,
-      base: {
-        family: {
-          value: 'UDShinGoPr6N, sans-serif',
-        },
+      'base-family': {
+        value: 'UDShinGoPr6N, sans-serif',
       },
     },
   });
