@@ -14,11 +14,13 @@ npm install @ubie/design-tokens
 This package contains files with three extensions: CSS, SCSS, and JS.
 
 ### CSS
+
 ```CSS
 @import url('node_modules/@ubie/design-tokens/dist/tokens.css');
 ```
 
 ### SCSS
+
 ```SCSS
 @import 'node_modules/@ubie/design-tokens/dist/tokens.scss';
 ```
@@ -26,7 +28,7 @@ This package contains files with three extensions: CSS, SCSS, and JS.
 ### JS
 
 ```js
-import DesignTokens from '@ubie/design-tokens'
+import DesignTokens from '@ubie/design-tokens';
 ```
 
 ## Development
@@ -34,15 +36,15 @@ import DesignTokens from '@ubie/design-tokens'
 1. Convert design tokens defined in Figma to JSON format files
 
 ```bash
-FIGMA_TOKEN=*** FIGMA_DESIGN_TOKEN_FILE_KEY=*** yarn build:figma
+FIGMA_TOKEN=*** FIGMA_DESIGN_TOKEN_FILE_KEY=*** npm run build:figma
 ```
 
-*If you’re Ubie member and want to know FIGMA_DESIGN_TOKEN_FILE_KEY,  please ask to `@designer` on Ubie Slack. 
+\*If you’re Ubie member and want to know FIGMA_DESIGN_TOKEN_FILE_KEY, please ask to `@designer` on Ubie Slack.
 
 2. Converts JSON files to the format used by each platform
 
 ```
-yarn build:tokens
+npm run build:tokens
 ```
 
 Edit `config.json` if you need to add a supported platform. Please refer to the [Style Dictionary documentation](https://amzn.github.io/style-dictionary/#/config?id=platform) for details.

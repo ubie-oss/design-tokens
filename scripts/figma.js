@@ -6,7 +6,7 @@ const writeFile = promisify(fs.writeFile);
 
 const TOKEN = process.env.FIGMA_TOKEN;
 const FIGMA_FILE_KEY = process.env.FIGMA_DESIGN_TOKEN_FILE_KEY;
-const PREFIX = 'Ubie';
+const PREFIX = 'ubie';
 const ROOT_FONT_SIZE = 16;
 
 const fetchFigma = (path) =>
@@ -55,7 +55,7 @@ const main = async () => {
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
       const hex = rgbaToHex(r * 255, g * 255, b * 255, opacity);
-      const colorNameArr = document.name.split('/').slice(1);
+      const colorNameArr = document.name.toLowerCase().split('/').slice(1);
       if (colorNameArr.length === 2) {
         // ex: "Ubie/White"
         primitiveColors[colorNameArr[1]] = {
@@ -78,13 +78,13 @@ const main = async () => {
     .forEach(({ document }) => {
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
-      const colorName = document.name.split('/').slice(1).join(' ');
+      const colorName = document.name.toLowerCase().replaceAll(' ', '/').split('/').slice(1).join('-');
       const style = styles.find((s) => s.name === document.name);
       const reference = style.description;
       semanticColors[colorName] = {
         value: !reference
           ? rgbaToHex(r * 255, g * 255, b * 255, opacity)
-          : `{color.${reference.replaceAll(' ', '.')}.value}`,
+          : `{color.${reference.toLowerCase().replaceAll(' ', '.')}.value}`,
       };
     });
 
@@ -116,7 +116,7 @@ const main = async () => {
 
   const spacingContent = JSON.stringify({
     size: {
-      Spacing: {
+      spacing: {
         ...spacings,
       },
     },
