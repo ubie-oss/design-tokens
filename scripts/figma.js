@@ -123,9 +123,15 @@ const main = async () => {
       const fontSize = document.style.fontSize / ROOT_FONT_SIZE + 'rem';
       typography[[category, scale, 'size'].join('-')] = {
         value: fontSize,
+        attributes: {
+          note: `${document.style.fontSize}px`,
+        },
       };
       typography[[category, scale, 'line'].join('-')] = {
         value: lineHeight,
+        attributes: {
+          note: `${document.style.lineHeightPercentFontSize}%`,
+        },
       };
     });
 
