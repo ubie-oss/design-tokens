@@ -98,9 +98,13 @@ const main = async () => {
     .filter(({ document }) => document.name.includes('Spacing'))
     .forEach(({ document }) => {
       const name = 'spacing' + '-' + document.name.split('/')[1].toLowerCase();
-      const value = Number(document.absoluteBoundingBox.width) / ROOT_FONT_SIZE;
+      const srcValue = document.absoluteBoundingBox.width;
+      const value = Number(srcValue) / ROOT_FONT_SIZE;
       spacings[name] = {
         value: value,
+        attributes: {
+          note: `${srcValue}px`,
+        },
       };
     });
 
@@ -119,18 +123,20 @@ const main = async () => {
       const name = document.name.split('/');
       const category = name[0].toLowerCase();
       const scale = name[1].toLowerCase();
-      const lineHeight = document.style.lineHeightPercentFontSize / 100;
-      const fontSize = document.style.fontSize / ROOT_FONT_SIZE + 'rem';
+      const srcLineHeight = document.style.lineHeightPercentFontSize;
+      const srcFontSize = document.style.fontSize;
+      const lineHeight = srcLineHeight / 100;
+      const fontSize = srcFontSize / ROOT_FONT_SIZE + 'rem';
       typography[[category, scale, 'size'].join('-')] = {
         value: fontSize,
         attributes: {
-          note: `${document.style.fontSize}px`,
+          note: `${srcFontSize}px`,
         },
       };
       typography[[category, scale, 'line'].join('-')] = {
         value: lineHeight,
         attributes: {
-          note: `${document.style.lineHeightPercentFontSize}%`,
+          note: `${srcLineHeight}%`,
         },
       };
     });
