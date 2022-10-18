@@ -150,24 +150,19 @@ const main = async () => {
   });
 
   // Generate Radius tokens
-  console.log(Object.values(componentNodes).filter(({ document }) => document.name.includes('Radius'))[0].document.cornerRadius);
   const radius = {};
   Object.values(componentNodes)
     .filter(({ document }) => document.name.includes('Radius'))
     .forEach(({ document }) => {
-      const name = 'radius' + '-' + document.name.split('/')[1].toLowerCase();
-      const srcValue = document.cornerRadius;
-      const value = Number(srcValue) / ROOT_FONT_SIZE;
+      const name = document.name.split('/')[1].toLowerCase();
+      const value = document.cornerRadius;
       radius[name] = {
-        value: value,
-        attributes: {
-          note: `${srcValue}px`,
-        },
+        value: `${value}px`,
       };
-    })
-  
+    });
+
   const radiusContent = JSON.stringify({
-    size: {
+    radius: {
       ...radius,
     },
   });
