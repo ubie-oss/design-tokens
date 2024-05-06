@@ -1,0 +1,76 @@
+name: Create Release PR
+on:
+  workflow_dispatch:
+    inputs:
+      semver:
+        description: 'New Version(semver)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  auto-release:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.UBIE_NPM_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: git config
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+      - name: Set .npmrc
+        run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build:tokens
+
+      - name: Release
+        run: npx release-it -i ${{ github.event.inputs.semver }} --ci
+
+      - name: Set PACKAGE_VERSION
+        run: echo "PACKAGE_VERSION=$(cat package.json | jq -r .version)" >> $GITHUB_ENV
+
+      - name: Set GitHub Release Note
+        id: release_note
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const result = await exec.getExecOutput(`gh api "/repos/{owner}/{repo}/releases/generate-notes" -f tag_name="${process.env.PACKAGE_VERSION}" --jq .body`, [], {
+              ignoreReturnCode: true,
+            })
+            core.setOutput('stdout', result.stdout)
+        env:
+          PACKAGE_VERSION: ${{ env.PACKAGE_VERSION }}
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore(release): 🤖 v${{ env.PACKAGE_VERSION }}'
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          assignees: ${{ github.actor }}
+          signoff: true
+          branch: release/${{ env.PACKAGE_VERSION }}
+          branch-suffix: timestamp
+          delete-branch: true
+          title: 'chore(release): v${{ env.PACKAGE_VERSION }}'
+          body: |
+            ${{ steps.release_note.outputs.stdout }}
+          labels: 'Type: Release'

@@ -1,0 +1,54 @@
+name: Create PR for Update Tokens
+on:
+  workflow_dispatch:
+
+jobs:
+  auto-release:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.UBIE_NPM_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: git config
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+      - name: Set .npmrc
+        run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+
+      - name: Set current datetime as env variable
+        env:
+          TZ: 'Asia/Tokyo'
+        run: echo "CURRENT_DATETIME=$(date +'%Y-%m-%d-%H:%M:%S')" >> $GITHUB_ENV
+
+      - name: Install
+        run: npm ci
+
+      - name: Get Tokens from Figma
+        run: FIGMA_TOKEN=${{ secrets.UBIE_FIGMA_TOKEN }} FIGMA_DESIGN_TOKEN_FILE_KEY=${{ secrets.FIGMA_DESIGN_TOKEN_FILE_KEY }} npm run build:figma
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: 🤖 update tokens ${{ env.CURRENT_DATETIME }}'
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          assignees: ${{ github.actor }}
+          signoff: true
+          branch: update/${{ env.CURRENT_DATETIME }}
+          branch-suffix: timestamp
+          delete-branch: true
+          title: 'chore: 🤖 update tokens ${{ env.CURRENT_DATETIME }}'
+          body: |
+            ${{ steps.release_note.outputs.stdout }}
+          labels: 'Type: Update'
