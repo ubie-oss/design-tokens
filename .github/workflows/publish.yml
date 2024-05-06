@@ -1,0 +1,31 @@
+name: Publish Package to npm
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: build figma
+        run: npm run build:figma
+        env:
+          FIGMA_TOKEN: ${{ secrets.UBIE_FIGMA_TOKEN }}
+          FIGMA_DESIGN_TOKEN_FILE_KEY: ${{ secrets.FIGMA_DESIGN_TOKEN_FILE_KEY }}
+
+      - name: build tokens
+        run: npm run build:tokens
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.UBIE_NPM_TOKEN }}

@@ -1,22 +1,40 @@
 {
-  "name": "@ubie-inc/design-tokens",
-  "version": "0.0.1",
+  "name": "@ubie/design-tokens",
+  "version": "0.1.4",
   "description": "Ubie Design Tokens",
-  "style": "dist/css/ubie-design-tokens.css",
+  "style": "dist/tokens.css",
+  "main": "dist/tokens.js",
+  "typings": "dist/tokens.d.ts",
   "files": [
     "dist/**"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:tokens": "style-dictionary build",
+    "build:figma": "node ./scripts/figma.js",
+    "fix": "prettier -w scripts",
+    "prepublishOnly": "npm run build:tokens"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ubie-inc/design-tokens.git"
+    "url": "git+https://github.com/ubie-oss/design-tokens.git"
   },
   "author": "",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ubie-inc/design-tokens/issues"
+    "url": "https://github.com/ubie-oss/design-tokens/issues"
   },
-  "homepage": "https://github.com/ubie-inc/design-tokens#readme"
+  "homepage": "https://github.com/ubie-oss/design-tokens#readme",
+  "devDependencies": {
+    "@ubie/prettier-config": "^0.1.0",
+    "node-fetch": "^3.2.0",
+    "prettier": "^2.6.2",
+    "style-dictionary": "^3.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "volta": {
+    "node": "16.14.2"
+  }
 }
