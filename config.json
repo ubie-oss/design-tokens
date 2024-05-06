@@ -22,8 +22,8 @@
       ]
     },
     "js": {
-      "transformGroup": "js",
       "buildPath": "dist/",
+      "transforms": ["attribute/cti", "name/cti/pascal", "size/rem", "color/hex8"],
       "files": [
         {
           "destination": "tokens.js",
