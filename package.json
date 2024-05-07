@@ -26,15 +26,20 @@
   },
   "homepage": "https://github.com/ubie-oss/design-tokens#readme",
   "devDependencies": {
+    "@figma/rest-api-spec": "^0.13.0",
+    "@types/bun": "latest",
     "@ubie/prettier-config": "^0.1.0",
-    "node-fetch": "^3.2.0",
-    "prettier": "^2.6.2",
-    "style-dictionary": "^3.7.0"
+    "node-fetch": "^3.3.2",
+    "prettier": "^3.2.5",
+    "style-dictionary": "^3.9.2"
   },
   "publishConfig": {
     "access": "public"
   },
   "volta": {
     "node": "16.14.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }

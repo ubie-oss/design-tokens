@@ -1,21 +1,35 @@
-const fs = require('fs');
-const { promisify } = require('util');
-const path = require('path');
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const writeFile = promisify(fs.writeFile);
+import fs from 'fs';
+import { promisify } from 'util';
+import path from 'path';
+import { GetFileComponentsResponse, GetFileStylesResponse, GetFileNodesResponse, Node } from '@figma/rest-api-spec';
+
+type TokenObject = {
+  [key: string]: {
+    value: number | string;
+    attributes?: {
+      note: string;
+    };
+  };
+};
 
 const TOKEN = process.env.FIGMA_TOKEN;
 const FIGMA_FILE_KEY = process.env.FIGMA_DESIGN_TOKEN_FILE_KEY;
+
+if (!TOKEN || !FIGMA_FILE_KEY) {
+  throw new Error('Please set FIGMA_TOKEN and FIGMA_DESIGN_TOKEN_FILE_KEY');
+}
+
+const writeFile = promisify(fs.writeFile);
 const ROOT_FONT_SIZE = 16;
 
-const fetchFigma = (path) =>
+const fetchFigma = (path: string) =>
   fetch(`https://api.figma.com/v1/files/${FIGMA_FILE_KEY}${path}`, {
     headers: {
       'X-FIGMA-TOKEN': TOKEN,
     },
   }).then((response) => response.json());
 
-const rgbaToHex = (r, g, b, a) => {
+const rgbaToHex = (r: number, g: number, b: number, a?: number) => {
   const hr = Math.round(r).toString(16).padStart(2, '0');
   const hg = Math.round(g).toString(16).padStart(2, '0');
   const hb = Math.round(b).toString(16).padStart(2, '0');
@@ -30,28 +44,29 @@ const rgbaToHex = (r, g, b, a) => {
 
 const main = async () => {
   // Get styles value
-  const responseStyles = await fetchFigma('/styles');
+  const responseStyles: GetFileStylesResponse = await fetchFigma('/styles');
   const styles = responseStyles.meta.styles;
 
   const styleNodeIds = styles.map((style) => style.node_id);
   const styleNodeIdsQuery = styleNodeIds.join(',');
-  const { nodes: styleNodes } = await fetchFigma(`/nodes?ids=${styleNodeIdsQuery}`);
+  const { nodes: styleNodes }: GetFileNodesResponse = await fetchFigma(`/nodes?ids=${styleNodeIdsQuery}`);
 
   // Get components value
-  const responseComponents = await fetchFigma('/components');
+  const responseComponents: GetFileComponentsResponse = await fetchFigma('/components');
   const components = responseComponents.meta.components;
 
   const componentNodeIds = components.map((component) => component.node_id);
   const componentNodeIdsQuery = componentNodeIds.join(',');
-  const { nodes: componentNodes } = await fetchFigma(`/nodes?ids=${componentNodeIdsQuery}`);
+  const { nodes: componentNodes }: GetFileNodesResponse = await fetchFigma(`/nodes?ids=${componentNodeIdsQuery}`);
 
   // Generate color tokens
-  const primitiveColors = {};
+  const primitiveColors: TokenObject = {};
 
   Object.values(styleNodes)
     .filter(({ document }) => document.name.includes('Primitive'))
     .sort((a, b) => a.document.name.localeCompare(b.document.name))
     .forEach(({ document }) => {
+      if (document.type !== 'RECTANGLE' || document.fills[0].type !== 'SOLID') return;
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
       const hex = rgbaToHex(r * 255, g * 255, b * 255, opacity);
@@ -61,17 +76,18 @@ const main = async () => {
       };
     });
 
-  const semanticColors = {};
+  const semanticColors: TokenObject = {};
 
   Object.values(styleNodes)
     .filter(({ document }) => document.name.includes('Semantic'))
     .sort((a, b) => a.document.name.localeCompare(b.document.name))
     .forEach(({ document }) => {
+      if (document.type !== 'RECTANGLE' || document.fills[0].type !== 'SOLID') return;
       const { opacity, color } = document.fills[0];
       const { r, g, b } = color;
       const colorName = document.name.toLowerCase().replaceAll(' ', '/').split('/').slice(1).join('-');
       const style = styles.find((s) => s.name === document.name);
-      const reference = style.description;
+      const reference = style?.description;
       semanticColors[colorName] = {
         value: !reference
           ? rgbaToHex(r * 255, g * 255, b * 255, opacity)
@@ -92,12 +108,13 @@ const main = async () => {
   });
 
   // Generate Spacing tokens
-  const spacings = {};
+  const spacings: TokenObject = {};
   Object.values(componentNodes)
     .filter(({ document }) => document.name.includes('Spacing'))
     .forEach(({ document }) => {
+      if (document.type !== 'COMPONENT') return;
       const name = 'spacing' + '-' + document.name.split('/')[1].toLowerCase();
-      const srcValue = document.absoluteBoundingBox.width;
+      const srcValue = document.absoluteBoundingBox?.width;
       const value = Number(srcValue) / ROOT_FONT_SIZE;
       spacings[name] = {
         value: value,
@@ -114,16 +131,21 @@ const main = async () => {
   });
 
   // Generate Typography tokens
-  const typography = {};
+  const typography: TokenObject = {};
   Object.values(styleNodes)
     .filter(({ document }) => document.type === 'TEXT')
     .sort((a, b) => a.document.name.localeCompare(b.document.name))
     .forEach(({ document }) => {
+      if (document.type !== 'TEXT') return;
+
       const name = document.name.split('/');
       const category = name[0].toLowerCase();
       const scale = name[1].toLowerCase();
       const srcLineHeight = document.style.lineHeightPercentFontSize;
       const srcFontSize = document.style.fontSize;
+
+      if (!srcLineHeight || !srcFontSize) return;
+
       const lineHeight = srcLineHeight / 100;
       const fontSize = srcFontSize / ROOT_FONT_SIZE + 'rem';
       typography[[category, scale, 'size'].join('-')] = {
@@ -150,10 +172,11 @@ const main = async () => {
   });
 
   // Generate Radius tokens
-  const radius = {};
+  const radius: TokenObject = {};
   Object.values(componentNodes)
     .filter(({ document }) => document.name.includes('Radius'))
     .forEach(({ document }) => {
+      if (document.type !== 'COMPONENT') return;
       const name = document.name.split('/')[1].toLowerCase();
       const value = document.cornerRadius;
       radius[name] = {
