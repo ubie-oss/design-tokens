@@ -33,17 +33,24 @@ import DesignTokens from '@ubie/design-tokens';
 
 ## Development
 
-1. Convert design tokens defined in Figma to JSON format files
+1. create .env file and include file id and token
 
 ```bash
-FIGMA_TOKEN=*** FIGMA_DESIGN_TOKEN_FILE_KEY=*** npm run build:figma
+cp .env_sample .env
 ```
 
-\*If you’re Ubie member and want to know FIGMA_DESIGN_TOKEN_FILE_KEY, please ask to `@designer` on Ubie Slack.
+- You can generate a token from the settings page in Figma.
+- If you’re Ubie member and want to know FIGMA_DESIGN_TOKEN_FILE_KEY, please ask to `@designer` on Ubie Slack.
 
-2. Converts JSON files to the format used by each platform
+2. Convert design tokens defined in Figma to JSON format files
 
+```bash
+npm run build:figma
 ```
+
+3. Converts JSON files to the format used by each platform
+
+```bash
 npm run build:tokens
 ```
 

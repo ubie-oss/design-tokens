@@ -167,7 +167,7 @@ const main = async () => {
     },
   });
 
-  // Generate seize/icon tokens
+  // Generate size/icon tokens
   const icon = {};
   Object.values(componentNodes)
     .filter(({ document }) => document.name.includes('IconSize'))
