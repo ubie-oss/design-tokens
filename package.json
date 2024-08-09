@@ -1,6 +1,6 @@
 {
   "name": "@ubie/design-tokens",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Ubie Design Tokens",
   "style": "dist/tokens.css",
   "main": "dist/tokens.js",
@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:tokens": "style-dictionary build",
-    "build:figma": "node ./scripts/figma.js",
+    "build:figma": "node --env-file=.env ./scripts/figma.js",
     "fix": "prettier -w scripts",
     "prepublishOnly": "npm run build:tokens"
   },

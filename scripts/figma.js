@@ -167,11 +167,34 @@ const main = async () => {
     },
   });
 
+  // Generate size/icon tokens
+  const icon = {};
+  Object.values(componentNodes)
+    .filter(({ document }) => document.name.includes('IconSize'))
+    .forEach(({ document }) => {
+      const name = document.name.split('/')[1].toLowerCase();
+      const srcValue = document.absoluteBoundingBox.width;
+      const value = Number(srcValue) / ROOT_FONT_SIZE;
+      icon[name] = {
+        value: value,
+        attributes: {
+          note: `${srcValue}px`,
+        },
+      };
+    });
+
+  const iconContent = JSON.stringify({
+    icon: {
+      ...icon,
+    },
+  });
+
   await writeFile(path.resolve(__dirname, '../tokens/color/primitive.json'), primitiveColorContent);
   await writeFile(path.resolve(__dirname, '../tokens/color/semantics.json'), semanticsColorContent);
   await writeFile(path.resolve(__dirname, '../tokens/size/spacing.json'), spacingContent);
   await writeFile(path.resolve(__dirname, '../tokens/text/typography.json'), typographyContent);
   await writeFile(path.resolve(__dirname, '../tokens/size/radius.json'), radiusContent);
+  await writeFile(path.resolve(__dirname, '../tokens/size/icon.json'), iconContent);
   console.log('DONE');
 };
 
