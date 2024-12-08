@@ -28,6 +28,16 @@ const rgbaToHex = (r, g, b, a) => {
   return '#' + hr + hg + hb + ha;
 };
 
+const extractAttribute = (name, document) => {
+  if (name.startsWith('border')) {
+    return document.strokes[0];
+  } else if (name.startsWith('text')){
+    return document.children[0].fills[0];
+  } else {
+    return document.fills[0];
+  }
+}
+
 const main = async () => {
   // Get styles value
   const responseStyles = await fetchFigma('/styles');
@@ -48,34 +58,27 @@ const main = async () => {
   // Generate color tokens
   const primitiveColors = {};
 
-  Object.values(styleNodes)
-    .filter(({ document }) => document.name.includes('Primitive'))
-    .sort((a, b) => a.document.name.localeCompare(b.document.name))
-    .forEach(({ document }) => {
-      const { opacity, color } = document.fills[0];
-      const { r, g, b } = color;
-      const hex = rgbaToHex(r * 255, g * 255, b * 255, opacity);
-      const colorNameArr = document.name.toLowerCase().split('/').slice(1);
-      primitiveColors[colorNameArr.join('-')] = {
-        value: hex,
-      };
-    });
+  Object.values(componentNodes)
+      .filter(({ document }) => document.name.includes('PrimitiveColor'))
+      .forEach(({ document }) => {
+        const name = document.name.split('/')[1].toLowerCase();
+        const c = document.fills[0].color;
+        primitiveColors[name] = {
+            value: rgbaToHex(c.r * 255, c.g * 255, c.b * 255, c.a),
+        };
+      });
 
   const semanticColors = {};
 
-  Object.values(styleNodes)
-    .filter(({ document }) => document.name.includes('Semantic'))
-    .sort((a, b) => a.document.name.localeCompare(b.document.name))
+  Object.values(componentNodes)
+    .filter(({ document }) => document.name.includes('SemanticColor'))
     .forEach(({ document }) => {
-      const { opacity, color } = document.fills[0];
-      const { r, g, b } = color;
-      const colorName = document.name.toLowerCase().replaceAll(' ', '/').split('/').slice(1).join('-');
-      const style = styles.find((s) => s.name === document.name);
-      const reference = style.description;
-      semanticColors[colorName] = {
-        value: !reference
-          ? rgbaToHex(r * 255, g * 255, b * 255, opacity)
-          : `{color.${reference.toLowerCase().replaceAll(' ', '-')}.value}`,
+      const name = document.name.split('/')[1].toLowerCase();
+      const attribute = extractAttribute(name, document);
+      const { color } = attribute;
+      const alpha = attribute.opacity != null ? attribute.opacity : color.a;
+      semanticColors[name] = {
+        value: rgbaToHex(color.r * 255, color.g * 255, color.b * 255, alpha),
       };
     });
 
