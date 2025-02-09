@@ -45,7 +45,7 @@ cp .env_sample .env
 2. Convert design tokens defined in Figma to JSON format files
 
 ```bash
-npm run build:figma
+npm run --env-file=.env build:figma
 ```
 
 3. Converts JSON files to the format used by each platform
