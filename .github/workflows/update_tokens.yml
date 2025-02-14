@@ -1,0 +1,40 @@
+name: Update Tokens
+
+on: [workflow_dispatch]
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get data from Figma
+        run: FIGMA_TOKEN=${{ secrets.UBIE_FIGMA_TOKEN }} FIGMA_DESIGN_TOKEN_FILE_KEY=${{ secrets.FIGMA_DESIGN_TOKEN_FILE_KEY }} npm run build:figma
+
+      - name: Build tokens
+        run: npm run build:tokens
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'feat:🎸 update tokens from figma'
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: true
+          branch: feat/update-tokens
+          branch-suffix: timestamp
+          delete-branch: true
+          title: 'feat:🎸 update tokens from figma'
+          body: Tokens has been updated
