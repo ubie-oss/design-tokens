@@ -37,7 +37,7 @@ jobs:
       - name: Install
         run: npm ci
       - name: Build
-        run: npm run build
+        run: npm run build:tokens
 
       - name: Release
         run: npx release-it -i ${{ github.event.inputs.semver }} --ci
