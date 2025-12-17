@@ -1,1 +1,19 @@
-{"radius":{"md":{"value":"8px"},"full":{"value":"9999px"},"lg":{"value":"12px"},"xs":{"value":"2px"},"sm":{"value":"4px"}}}
+{
+  "radius": {
+    "full": {
+      "value": "9999px"
+    },
+    "lg": {
+      "value": "12px"
+    },
+    "md": {
+      "value": "8px"
+    },
+    "sm": {
+      "value": "4px"
+    },
+    "xs": {
+      "value": "2px"
+    }
+  }
+}

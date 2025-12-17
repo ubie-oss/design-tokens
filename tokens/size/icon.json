@@ -1,1 +1,52 @@
-{"icon":{"sm":{"value":1.25,"attributes":{"note":"20px"}},"xs":{"value":1,"attributes":{"note":"16px"}},"3xl":{"value":5,"attributes":{"note":"80px"}},"lg":{"value":1.75,"attributes":{"note":"28px"}},"2xl":{"value":4,"attributes":{"note":"64px"}},"xl":{"value":2,"attributes":{"note":"32px"}},"md":{"value":1.5,"attributes":{"note":"24px"}},"4xl":{"value":6.5,"attributes":{"note":"104px"}}}}
+{
+  "icon": {
+    "2xl": {
+      "value": 4,
+      "attributes": {
+        "note": "64px"
+      }
+    },
+    "3xl": {
+      "value": 5,
+      "attributes": {
+        "note": "80px"
+      }
+    },
+    "4xl": {
+      "value": 6.5,
+      "attributes": {
+        "note": "104px"
+      }
+    },
+    "lg": {
+      "value": 1.75,
+      "attributes": {
+        "note": "28px"
+      }
+    },
+    "md": {
+      "value": 1.5,
+      "attributes": {
+        "note": "24px"
+      }
+    },
+    "sm": {
+      "value": 1.25,
+      "attributes": {
+        "note": "20px"
+      }
+    },
+    "xl": {
+      "value": 2,
+      "attributes": {
+        "note": "32px"
+      }
+    },
+    "xs": {
+      "value": 1,
+      "attributes": {
+        "note": "16px"
+      }
+    }
+  }
+}
