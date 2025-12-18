@@ -1,1 +1,223 @@
-{"color":{"text-pink-darken":{"value":"#7c1c40ff"},"text-button":{"value":"#3959ccff"},"border-black":{"value":"#c5c6c7ff"},"text-black":{"value":"#393c41ff"},"text-green-darken":{"value":"#167453ff"},"text-white":{"value":"#ffffffff"},"text-pink":{"value":"#DA3170ff"},"text-orange":{"value":"#b57212ff"},"text-orange-darken":{"value":"#915c0fff"},"text-link-sub":{"value":"#686a6dff"},"text-purple":{"value":"#7322a2ff"},"text-button-darken":{"value":"#3959ccff"},"text-red":{"value":"#a1213cff"},"text-sub":{"value":"#686a6dff"},"text-blue":{"value":"#283f91ff"},"text-blue-darken":{"value":"#203374ff"},"text-placeholder":{"value":"#96989aff"},"text-disabled":{"value":"#dcddddff"},"text-purple-darken":{"value":"#5c1b82ff"},"text-red-darken":{"value":"#811a30ff"},"text-button-alert-darken":{"value":"#a1213cff"},"text-button-alert":{"value":"#e32e55ff"},"text-green":{"value":"#1c9167ff"},"text-main":{"value":"#32353aff"},"text-black-darken":{"value":"#32353aff"},"text-link":{"value":"#3959ccff"},"border-black-darken":{"value":"#96989aff"},"background-purple-darken":{"value":"#e9cdf9ff"},"background-pink-darken":{"value":"#f6ceddff"},"background-blue-inverse":{"value":"#3959ccff"},"background-purple":{"value":"#f8effcff"},"border-red-darken":{"value":"#e85474ff"},"background-black":{"value":"#fafafaff"},"background-green":{"value":"#e9faf4ff"},"background-blue":{"value":"#f0f2fcff"},"background-red":{"value":"#fceff2ff"},"background-pink":{"value":"#fcf0f5ff"},"background-red-darken":{"value":"#f8cdd6ff"},"background-pink-inverse":{"value":"#da3170ff"},"background-green-darken":{"value":"#cbf3e5ff"},"background-red-inverse":{"value":"#e32e55ff"},"border-purple":{"value":"#c47deeff"},"background-white":{"value":"#ffffffff"},"background-orange-inverse-darken":{"value":"#b57212ff"},"background-red-inverse-darken":{"value":"#a1213cff"},"border-green":{"value":"#77dfbaff"},"background-blue-inverse-darken":{"value":"#283f91ff"},"border-green-darken":{"value":"#4ed5a5ff"},"background-pink-inverse-darken":{"value":"#9b2350ff"},"background-purple-inverse":{"value":"#a230e4ff"},"background-blue-darken":{"value":"#cfd7f3ff"},"background-orange-darken":{"value":"#ffe8c8ff"},"background-orange":{"value":"#fff9f0ff"},"background-black-inverse-darken":{"value":"#55575bff"},"border-blue":{"value":"#8296dfff"},"background-purple-inverse-darken":{"value":"#7322a2ff"},"background-black-inverse":{"value":"#686a6dff"},"border-pink-darken":{"value":"#e1568aff"},"border-purple-darken":{"value":"#b355e9ff"},"border-blue-darken":{"value":"#5d77d5ff"},"border-orange":{"value":"#ffc46fff"},"background-orange-inverse":{"value":"#ffa11aff"},"background-black-darken":{"value":"#f6f6f6ff"},"background-green-inverse":{"value":"#27cc91ff"},"border-pink":{"value":"#e87da5ff"},"background-green-inverse-darken":{"value":"#1c9167ff"},"background-modal":{"value":"#00000080"},"border-red":{"value":"#ed7b94ff"},"border-orange-darken":{"value":"#ffb243ff"},"border-black-lighten":{"value":"#f6f6f6ff"}}}
+{
+  "color": {
+    "background-black": {
+      "value": "#fafafaff"
+    },
+    "background-black-darken": {
+      "value": "#f6f6f6ff"
+    },
+    "background-black-inverse": {
+      "value": "#686a6dff"
+    },
+    "background-black-inverse-darken": {
+      "value": "#55575bff"
+    },
+    "background-blue": {
+      "value": "#f0f2fcff"
+    },
+    "background-blue-darken": {
+      "value": "#cfd7f3ff"
+    },
+    "background-blue-inverse": {
+      "value": "#3959ccff"
+    },
+    "background-blue-inverse-darken": {
+      "value": "#283f91ff"
+    },
+    "background-button-primary": {
+      "value": "#3959ccff"
+    },
+    "background-button-primary-darken": {
+      "value": "#1a285cff"
+    },
+    "background-green": {
+      "value": "#e9faf4ff"
+    },
+    "background-green-darken": {
+      "value": "#cbf3e5ff"
+    },
+    "background-green-inverse": {
+      "value": "#27cc91ff"
+    },
+    "background-green-inverse-darken": {
+      "value": "#1c9167ff"
+    },
+    "background-modal": {
+      "value": "#00000080"
+    },
+    "background-orange": {
+      "value": "#fff9f0ff"
+    },
+    "background-orange-darken": {
+      "value": "#ffe8c8ff"
+    },
+    "background-orange-inverse": {
+      "value": "#ffa11aff"
+    },
+    "background-orange-inverse-darken": {
+      "value": "#b57212ff"
+    },
+    "background-pink": {
+      "value": "#fcf0f5ff"
+    },
+    "background-pink-darken": {
+      "value": "#f6ceddff"
+    },
+    "background-pink-inverse": {
+      "value": "#da3170ff"
+    },
+    "background-pink-inverse-darken": {
+      "value": "#9b2350ff"
+    },
+    "background-purple": {
+      "value": "#f8effcff"
+    },
+    "background-purple-darken": {
+      "value": "#e9cdf9ff"
+    },
+    "background-purple-inverse": {
+      "value": "#a230e4ff"
+    },
+    "background-purple-inverse-darken": {
+      "value": "#7322a2ff"
+    },
+    "background-red": {
+      "value": "#fceff2ff"
+    },
+    "background-red-darken": {
+      "value": "#f8cdd6ff"
+    },
+    "background-red-inverse": {
+      "value": "#e32e55ff"
+    },
+    "background-red-inverse-darken": {
+      "value": "#a1213cff"
+    },
+    "background-white": {
+      "value": "#ffffffff"
+    },
+    "border-black": {
+      "value": "#c5c6c7ff"
+    },
+    "border-black-darken": {
+      "value": "#96989aff"
+    },
+    "border-black-lighten": {
+      "value": "#f6f6f6ff"
+    },
+    "border-blue": {
+      "value": "#8296dfff"
+    },
+    "border-blue-darken": {
+      "value": "#5d77d5ff"
+    },
+    "border-green": {
+      "value": "#77dfbaff"
+    },
+    "border-green-darken": {
+      "value": "#4ed5a5ff"
+    },
+    "border-orange": {
+      "value": "#ffc46fff"
+    },
+    "border-orange-darken": {
+      "value": "#ffb243ff"
+    },
+    "border-pink": {
+      "value": "#e87da5ff"
+    },
+    "border-pink-darken": {
+      "value": "#e1568aff"
+    },
+    "border-purple": {
+      "value": "#c47deeff"
+    },
+    "border-purple-darken": {
+      "value": "#b355e9ff"
+    },
+    "border-red": {
+      "value": "#ed7b94ff"
+    },
+    "border-red-darken": {
+      "value": "#e85474ff"
+    },
+    "border-white": {
+      "value": "#ffffffff"
+    },
+    "text-black": {
+      "value": "#393c41ff"
+    },
+    "text-black-darken": {
+      "value": "#32353aff"
+    },
+    "text-blue": {
+      "value": "#283f91ff"
+    },
+    "text-blue-darken": {
+      "value": "#203374ff"
+    },
+    "text-button": {
+      "value": "#3959ccff"
+    },
+    "text-button-alert": {
+      "value": "#e32e55ff"
+    },
+    "text-button-alert-darken": {
+      "value": "#a1213cff"
+    },
+    "text-button-darken": {
+      "value": "#1a285cff"
+    },
+    "text-disabled": {
+      "value": "#dcddddff"
+    },
+    "text-green": {
+      "value": "#1c9167ff"
+    },
+    "text-green-darken": {
+      "value": "#167453ff"
+    },
+    "text-link": {
+      "value": "#3959ccff"
+    },
+    "text-link-sub": {
+      "value": "#686a6dff"
+    },
+    "text-main": {
+      "value": "#32353aff"
+    },
+    "text-orange": {
+      "value": "#b57212ff"
+    },
+    "text-orange-darken": {
+      "value": "#915c0fff"
+    },
+    "text-pink": {
+      "value": "#da3170ff"
+    },
+    "text-pink-darken": {
+      "value": "#7c1c40ff"
+    },
+    "text-placeholder": {
+      "value": "#96989aff"
+    },
+    "text-purple": {
+      "value": "#7322a2ff"
+    },
+    "text-purple-darken": {
+      "value": "#5c1b82ff"
+    },
+    "text-red": {
+      "value": "#a1213cff"
+    },
+    "text-red-darken": {
+      "value": "#811a30ff"
+    },
+    "text-sub": {
+      "value": "#686a6dff"
+    },
+    "text-white": {
+      "value": "#ffffffff"
+    }
+  }
+}

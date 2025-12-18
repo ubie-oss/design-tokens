@@ -28,6 +28,13 @@ const rgbaToHex = (r, g, b, a) => {
   return '#' + hr + hg + hb + ha;
 };
 
+const sortObjectByKeys = (obj) => {
+  return Object.keys(obj).sort().reduce((acc, key) => {
+    acc[key] = obj[key];
+    return acc;
+  }, {});
+};
+
 const extractAttribute = (name, document) => {
   if (name.startsWith('border')) {
     return document.strokes[0];
@@ -39,14 +46,6 @@ const extractAttribute = (name, document) => {
 }
 
 const main = async () => {
-  // Get styles value
-  const responseStyles = await fetchFigma('/styles');
-  const styles = responseStyles.meta.styles;
-
-  const styleNodeIds = styles.map((style) => style.node_id);
-  const styleNodeIdsQuery = styleNodeIds.join(',');
-  const { nodes: styleNodes } = await fetchFigma(`/nodes?ids=${styleNodeIdsQuery}`);
-
   // Get components value
   const responseComponents = await fetchFigma('/components');
   const components = responseComponents.meta.components;
@@ -83,16 +82,12 @@ const main = async () => {
     });
 
   const primitiveColorContent = JSON.stringify({
-    color: {
-      ...primitiveColors,
-    },
-  });
+    color: sortObjectByKeys(primitiveColors),
+  }, null, 2);
 
   const semanticsColorContent = JSON.stringify({
-    color: {
-      ...semanticColors,
-    },
-  });
+    color: sortObjectByKeys(semanticColors),
+  }, null, 2);
 
   // Generate Spacing tokens
   const spacings = {};
@@ -111,31 +106,27 @@ const main = async () => {
     });
 
   const spacingContent = JSON.stringify({
-    size: {
-      ...spacings,
-    },
-  });
+    size: sortObjectByKeys(spacings),
+  }, null, 2);
 
   // Generate Typography tokens
   const typography = {};
-  Object.values(styleNodes)
-    .filter(({ document }) => document.type === 'TEXT')
-    .sort((a, b) => a.document.name.localeCompare(b.document.name))
+  Object.values(componentNodes)
+    .filter(({ document }) => document.name.includes('Typography'))
     .forEach(({ document }) => {
-      const name = document.name.split('/');
-      const category = name[0].toLowerCase();
-      const scale = name[1].toLowerCase();
-      const srcLineHeight = document.style.lineHeightPercentFontSize;
-      const srcFontSize = document.style.fontSize;
+      const name = document.name.split('/')[1].toLowerCase();
+      const textComponent = document.children.find((child) => child.name === document.name && child.type === 'TEXT');
+      const srcLineHeight = textComponent.style.lineHeightPercentFontSize;
+      const srcFontSize = textComponent.style.fontSize;
       const lineHeight = srcLineHeight / 100;
       const fontSize = srcFontSize / ROOT_FONT_SIZE + 'rem';
-      typography[[category, scale, 'size'].join('-')] = {
+      typography[[name, 'size'].join('-')] = {
         value: fontSize,
         attributes: {
           note: `${srcFontSize}px`,
         },
       };
-      typography[[category, scale, 'line'].join('-')] = {
+      typography[[name, 'line'].join('-')] = {
         value: lineHeight,
         attributes: {
           note: `${srcLineHeight}%`,
@@ -144,13 +135,13 @@ const main = async () => {
     });
 
   const typographyContent = JSON.stringify({
-    text: {
+    text: sortObjectByKeys({
       ...typography,
       'base-family': {
         value: 'UDShinGoPr6N, sans-serif',
       },
-    },
-  });
+    }),
+  }, null, 2);
 
   // Generate Radius tokens
   const radius = {};
@@ -165,10 +156,8 @@ const main = async () => {
     });
 
   const radiusContent = JSON.stringify({
-    radius: {
-      ...radius,
-    },
-  });
+    radius: sortObjectByKeys(radius),
+  }, null, 2);
 
   // Generate size/icon tokens
   const icon = {};
@@ -187,10 +176,8 @@ const main = async () => {
     });
 
   const iconContent = JSON.stringify({
-    icon: {
-      ...icon,
-    },
-  });
+    icon: sortObjectByKeys(icon),
+  }, null, 2);
 
   await writeFile(path.resolve(__dirname, '../tokens/color/primitive.json'), primitiveColorContent);
   await writeFile(path.resolve(__dirname, '../tokens/color/semantics.json'), semanticsColorContent);
