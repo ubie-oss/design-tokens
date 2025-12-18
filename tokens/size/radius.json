@@ -12,8 +12,14 @@
     "sm": {
       "value": "4px"
     },
+    "xl": {
+      "value": "16px"
+    },
     "xs": {
       "value": "2px"
+    },
+    "xxl": {
+      "value": "24px"
     }
   }
 }

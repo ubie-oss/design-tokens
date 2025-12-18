@@ -24,6 +24,12 @@
     "background-blue-inverse-darken": {
       "value": "#283f91ff"
     },
+    "background-button-primary": {
+      "value": "#3959ccff"
+    },
+    "background-button-primary-darken": {
+      "value": "#1a285cff"
+    },
     "background-green": {
       "value": "#e9faf4ff"
     },
@@ -135,6 +141,9 @@
     "border-red-darken": {
       "value": "#e85474ff"
     },
+    "border-white": {
+      "value": "#ffffffff"
+    },
     "text-black": {
       "value": "#393c41ff"
     },
@@ -157,7 +166,7 @@
       "value": "#a1213cff"
     },
     "text-button-darken": {
-      "value": "#3959ccff"
+      "value": "#1a285cff"
     },
     "text-disabled": {
       "value": "#dcddddff"
@@ -184,7 +193,7 @@
       "value": "#915c0fff"
     },
     "text-pink": {
-      "value": "#DA3170ff"
+      "value": "#da3170ff"
     },
     "text-pink-darken": {
       "value": "#7c1c40ff"

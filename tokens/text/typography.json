@@ -10,9 +10,9 @@
       }
     },
     "body-lg-narrow-line": {
-      "value": 1.5,
+      "value": 1.4,
       "attributes": {
-        "note": "150%"
+        "note": "140%"
       }
     },
     "body-lg-narrow-size": {
@@ -46,9 +46,9 @@
       }
     },
     "body-md-narrow-line": {
-      "value": 1.5,
+      "value": 1.4,
       "attributes": {
-        "note": "150%"
+        "note": "140%"
       }
     },
     "body-md-narrow-size": {
@@ -82,9 +82,9 @@
       }
     },
     "body-sm-narrow-line": {
-      "value": 1.5,
+      "value": 1.4,
       "attributes": {
-        "note": "150%"
+        "note": "140%"
       }
     },
     "body-sm-narrow-size": {
@@ -184,9 +184,9 @@
       }
     },
     "heading-lg-line": {
-      "value": 1.4,
+      "value": 1.5,
       "attributes": {
-        "note": "140%"
+        "note": "150%"
       }
     },
     "heading-lg-size": {
@@ -208,9 +208,9 @@
       }
     },
     "heading-md-line": {
-      "value": 1.4,
+      "value": 1.5,
       "attributes": {
-        "note": "140%"
+        "note": "150%"
       }
     },
     "heading-md-size": {
@@ -256,9 +256,9 @@
       }
     },
     "heading-xl-line": {
-      "value": 1.4,
+      "value": 1.5,
       "attributes": {
-        "note": "140%"
+        "note": "150%"
       }
     },
     "heading-xl-size": {
@@ -304,9 +304,9 @@
       }
     },
     "heading-xxs-line": {
-      "value": 1.4,
+      "value": 1.5,
       "attributes": {
-        "note": "140%"
+        "note": "150%"
       }
     },
     "heading-xxs-size": {
