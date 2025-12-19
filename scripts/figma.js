@@ -38,12 +38,12 @@ const sortObjectByKeys = (obj) => {
 const extractAttribute = (name, document) => {
   if (name.startsWith('border')) {
     return document.strokes[0];
-  } else if (name.startsWith('text')){
+  } else if (name.startsWith('text')) {
     return document.children[0].fills[0];
   } else {
     return document.fills[0];
   }
-}
+};
 
 const main = async () => {
   // Get components value
@@ -58,14 +58,14 @@ const main = async () => {
   const primitiveColors = {};
 
   Object.values(componentNodes)
-      .filter(({ document }) => document.name.includes('PrimitiveColor'))
-      .forEach(({ document }) => {
-        const name = document.name.split('/')[1].toLowerCase();
-        const c = document.fills[0].color;
-        primitiveColors[name] = {
-            value: rgbaToHex(c.r * 255, c.g * 255, c.b * 255, c.a),
-        };
-      });
+    .filter(({ document }) => document.name.includes('PrimitiveColor'))
+    .forEach(({ document }) => {
+      const name = document.name.split('/')[1].toLowerCase();
+      const c = document.fills[0].color;
+      primitiveColors[name] = {
+        value: rgbaToHex(c.r * 255, c.g * 255, c.b * 255, c.a),
+      };
+    });
 
   const semanticColors = {};
 
@@ -138,7 +138,8 @@ const main = async () => {
     text: sortObjectByKeys({
       ...typography,
       'base-family': {
-        value: 'UDShinGoPr6N, sans-serif',
+        value:
+          "-apple-system, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif, 'Segoe UI Emoji'",
       },
     }),
   }, null, 2);
