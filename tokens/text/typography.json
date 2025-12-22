@@ -1,7 +1,7 @@
 {
   "text": {
     "base-family": {
-      "value": "UDShinGoPr6N, sans-serif"
+      "value": "-apple-system, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif, 'Segoe UI Emoji'"
     },
     "body-lg-line": {
       "value": 1.7,
