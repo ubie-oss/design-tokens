@@ -73,12 +73,24 @@ const main = async () => {
     .filter(({ document }) => document.name.includes('SemanticColor'))
     .forEach(({ document }) => {
       const name = document.name.split('/')[1].toLowerCase();
-      const attribute = extractAttribute(name, document);
-      const { color } = attribute;
-      const alpha = attribute.opacity != null ? attribute.opacity : color.a;
-      semanticColors[name] = {
-        value: rgbaToHex(color.r * 255, color.g * 255, color.b * 255, alpha),
-      };
+      
+      // グラデーションの場合は、グラデーションの色を取得する
+      if (document.fills && document.fills.length > 0 && document.fills[0].type === 'GRADIENT_LINEAR') {
+        document.fills[0].gradientStops.forEach((gradientStop) => {
+          const { color } = gradientStop;
+          const alpha = gradientStop.opacity != null ? gradientStop.opacity : color.a;
+          semanticColors[`${name}-${String(Math.floor(gradientStop.position * 100)).padStart(3, '0')}`] = {
+            value: rgbaToHex(color.r * 255, color.g * 255, color.b * 255, alpha),
+          };
+        });
+      } else {
+        const attribute = extractAttribute(name, document);
+        const { color } = attribute;
+        const alpha = attribute.opacity != null ? attribute.opacity : color.a;
+        semanticColors[name] = {
+          value: rgbaToHex(color.r * 255, color.g * 255, color.b * 255, alpha),
+        };
+      }
     });
 
   const primitiveColorContent = JSON.stringify({

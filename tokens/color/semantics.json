@@ -144,6 +144,36 @@
     "border-white": {
       "value": "#ffffffff"
     },
+    "gradation-background-000": {
+      "value": "#fcf0f5ff"
+    },
+    "gradation-background-100": {
+      "value": "#f0f2fcff"
+    },
+    "gradation-icon-000": {
+      "value": "#e87da5ff"
+    },
+    "gradation-icon-085": {
+      "value": "#aab8e9ff"
+    },
+    "gradation-icon-100": {
+      "value": "#c6cff1ff"
+    },
+    "gradation-primary-000": {
+      "value": "#efa6c2ff"
+    },
+    "gradation-primary-100": {
+      "value": "#aab8e9ff"
+    },
+    "gradation-primary-accent-000": {
+      "value": "#da3170ff"
+    },
+    "gradation-primary-accent-050": {
+      "value": "#a230e4ff"
+    },
+    "gradation-primary-accent-100": {
+      "value": "#3959ccff"
+    },
     "text-black": {
       "value": "#393c41ff"
     },
