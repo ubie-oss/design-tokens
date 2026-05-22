@@ -19,7 +19,7 @@ jobs:
       NPM_TOKEN: ${{ secrets.UBIE_NPM_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
         with:
           fetch-depth: 0
       - name: git config
@@ -27,7 +27,7 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # ratchet:actions/setup-node@v4
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
@@ -47,7 +47,7 @@ jobs:
 
       - name: Set GitHub Release Note
         id: release_note
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # ratchet:actions/github-script@v7
         with:
           script: |
             const result = await exec.getExecOutput(`gh api "/repos/{owner}/{repo}/releases/generate-notes" -f tag_name="${process.env.PACKAGE_VERSION}" --jq .body`, [], {
@@ -59,7 +59,7 @@ jobs:
 
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # ratchet:peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore(release): 🤖 v${{ env.PACKAGE_VERSION }}'
